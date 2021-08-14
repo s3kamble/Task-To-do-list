@@ -52,9 +52,8 @@ export const completeTask = async (Taskid) => {
     let updateBtn = completeDiv.getElementsByClassName("editTask");
    
    if(Tasks[index].isComplete==true && checkBox[0].checked ==true){
-        alert("Yet to complete");
-        completeDiv.style.backgroundColor="blue";
-
+        alert("Yet to complete?");
+        completeDiv.style.backgroundColor="rgba(137, 43, 226, 0.13)";
         let putData = { "content":Tasks[index].content,
                         "createdAt":new Date().toLocaleString(),
                         "updatedAt":" ",
@@ -63,10 +62,11 @@ export const completeTask = async (Taskid) => {
                 
         updateRequest(Taskid,putData);
    }
-   else if(Tasks[index].isComplete==false &&checkBox[0].checked ==true){
+   else if(Tasks[index].isComplete==false && checkBox[0].checked ==true){
         alert("Mark as complete?");
         completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
-        updateBtn.disabled = "true" 
+        updateBtn.disabled = "true" ;
+        
         let putData = { "content":Tasks[index].content,
                         "createdAt":new Date().toLocaleString(),
                         "updatedAt":" ",
