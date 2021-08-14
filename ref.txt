@@ -1,0 +1,100 @@
+export const addTaskToDom = (task) => {
+    let taskList= document.getElementById("taskList");
+    let taskDiv= document.createElement("div");
+    let taskDesc =document.createElement("textarea");
+    let taskLog = document.createElement("p");
+    let delBtn =  document.createElement("button");
+    // let completeBtn =  document.createElement("button");
+    let completeBtn= document.createElement("input")
+    let updateBtn =  document.createElement("button");
+   
+    taskDiv.className="mainCard";
+    taskDiv.id=task.taskId;
+
+    taskDesc.textContent=task.content
+    taskDesc.className="taskAdded";
+    taskDesc.disabled="true";
+
+    taskLog.className="date"; 
+    taskLog.textContent=task.createdAt;
+    
+    delBtn.textContent="Delete";
+    delBtn.className="btn-danger";
+
+    updateBtn.textContent="Edit task";
+    updateBtn.className="editTask";
+
+    completeBtn.textContent="Mark As Done";
+    completeBtn.className="completeBtn";
+
+
+    delBtn.onclick=(e)=>{
+        deleteTask(task,taskDiv.id);
+    }
+
+    updateBtn.onclick=(e)=>{ 
+        updateTask(taskDiv.id,taskDesc,taskLog);
+    }
+
+    completeBtn.onclick=()=>{
+        completeTask(taskDiv.id);
+    }
+
+    taskDiv.appendChild(taskDesc);
+    taskDiv.appendChild(taskLog);
+    taskDiv.appendChild(updateBtn);
+    taskDiv.appendChild(delBtn);
+    taskDiv.appendChild(completeBtn);
+
+    taskList.appendChild(taskDiv);
+    
+}
+
+----------------------------------------------------------------------------------------------------
+export const completeTask = async (Taskid) => {
+    let Tasks = await taskRequestApi()
+    
+    const index = Tasks.findIndex(obj => {
+        return obj.taskId === Taskid;
+    });  
+   
+    alert("Mark as completed?");
+    let putData = {"content":Tasks[index].content,
+                "createdAt":new Date().toLocaleString(),
+                "updatedAt":" ",
+                "isComplete":true}
+               
+     updateRequest(Taskid,putData);
+               
+    
+    let completeDiv=document.getElementById(Taskid);
+
+    if(completeDiv.isComplete === false){
+        completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
+        completeDiv.lastChild.textContent="Done";
+        completeDiv.lastChild.disabled="true";
+    
+    }
+   
+}
+
+-------------------------------------------------------------------------------------------
+window.onload = async function () {
+
+   let data =await getRequest();
+   
+   data.forEach(task => {
+      let completeDiv=document.getElementById(task.taskId);
+
+      if (task.isComplete == true){
+         completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
+         // completeDiv.lastChild.textContent="Done";
+         // completeDiv.lastChild.disabled="";
+      }   
+      else{
+
+      }  
+   });
+   
+    return;
+};

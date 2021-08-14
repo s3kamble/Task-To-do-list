@@ -51,8 +51,10 @@
     background-color: rgba(137, 43, 226, 0.514);
 }
 
-.completeBtn{
+input.completeBtn{
     margin-left:2rem;
+    height:3vh;
+    
 }
 
 .btns{
@@ -67,8 +69,8 @@ hr{
 
 @media (max-width:850px){
     .mainCard{   
-        width:90vw;
-        height:35vh;
+        width:80vw;
+        height:32vh;
     }
     .taskAdded{ 
         width:60vw;
@@ -79,9 +81,9 @@ hr{
         width:25vw;
     }
 
-    .btn-danger,.editTask,.completeBtn  {
+    .btn-danger,.editTask {
         
-        width:25vw;
+        width:20vw;
         height: 6vh;
     
     }

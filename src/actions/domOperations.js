@@ -1,6 +1,5 @@
 
 import { addRequest,createRequest,deleteRequest,updateRequest,taskRequestApi } from "../apiCalls/apiCalls.js";
-// import { taskRequestApi } from "../apiCalls/taskAPI.js";
 import { addTaskToDom } from "../components/task.js";
 
 
@@ -25,10 +24,10 @@ export const createNewTask=async (event)=>{
             addTaskToDom(resData);
             document.taskInput.task.value=" ";
 
-    }
-    else{
-        alert("Empty input");
-    }    
+            }
+            else{
+                alert("Empty input");
+            }    
 }
 
 
@@ -48,24 +47,35 @@ export const completeTask = async (Taskid) => {
         return obj.taskId === Taskid;
     });  
    
-    alert("Mark as completed?");
-    let putData = {"content":Tasks[index].content,
-                "createdAt":new Date().toLocaleString(),
-                "updatedAt":" ",
-                "isComplete":true}
-               
-     updateRequest(Taskid,putData);
-               
-    
     let completeDiv=document.getElementById(Taskid);
-
-    if(completeDiv.isComplete === false){
-        completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
-        completeDiv.lastChild.textContent="Done";
-        completeDiv.lastChild.disabled="true";
-    
-    }
+    let checkBox = completeDiv.getElementsByClassName("completeBtn");
+    let updateBtn = completeDiv.getElementsByClassName("editTask");
    
+   if(Tasks[index].isComplete==true && checkBox[0].checked ==true){
+        alert("Yet to complete");
+        completeDiv.style.backgroundColor="blue";
+
+        let putData = { "content":Tasks[index].content,
+                        "createdAt":new Date().toLocaleString(),
+                        "updatedAt":" ",
+                        "isComplete":false
+                    }
+                
+        updateRequest(Taskid,putData);
+   }
+   else if(Tasks[index].isComplete==false &&checkBox[0].checked ==true){
+        alert("Mark as complete?");
+        completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
+        updateBtn.disabled = "true" 
+        let putData = { "content":Tasks[index].content,
+                        "createdAt":new Date().toLocaleString(),
+                        "updatedAt":" ",
+                        "isComplete":true
+                    }
+                
+        updateRequest(Taskid,putData);
+   }
+                   
 }
 
 
@@ -92,7 +102,7 @@ export const updateTask= async(Taskid,desc,log)=>{
                     completeDiv.lastChild.hidden=false;
                     desc.disabled="true";
                     taskUpdate.textContent="Edit Task";
-                    
+ 
                 }
                 else{
                     completeDiv.lastChild.hidden=true;
@@ -100,16 +110,17 @@ export const updateTask= async(Taskid,desc,log)=>{
                     taskUpdate.textContent="Save";
 
                 }
-                 let putData = {"content":desc.value,
-                    "createdAt":new Date().toLocaleString(),
-                    "updatedAt":" ",
-                    "isComplete":false}
+               
+                let putData = { "content":desc.value,
+                                "createdAt":new Date().toLocaleString(),
+                                "updatedAt":" ",
+                                "isComplete":false
+                            }
                 
-                updateRequest(Taskid,putData);            
+                updateRequest(Taskid,putData); 
+                                        
  
           }
-
-
           
     }
    

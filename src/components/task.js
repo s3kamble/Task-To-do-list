@@ -1,4 +1,4 @@
-// import { deletetask } from "../apiCalls/apiCalls.js";
+
 import { deleteTask ,updateTask,completeTask} from "../actions/domOperations.js";
 
 export const addTaskToDom = (task) => {
@@ -7,7 +7,7 @@ export const addTaskToDom = (task) => {
     let taskDesc =document.createElement("textarea");
     let taskLog = document.createElement("p");
     let delBtn =  document.createElement("button");
-    let completeBtn =  document.createElement("button");
+    let completeBtn= document.createElement("input")
     let updateBtn =  document.createElement("button");
    
     taskDiv.className="mainCard";
@@ -26,7 +26,7 @@ export const addTaskToDom = (task) => {
     updateBtn.textContent="Edit task";
     updateBtn.className="editTask";
 
-    completeBtn.textContent="Mark As Done";
+    completeBtn.type="checkbox"
     completeBtn.className="completeBtn";
 
 
