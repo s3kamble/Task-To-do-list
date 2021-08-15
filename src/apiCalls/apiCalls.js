@@ -1,7 +1,7 @@
 import { createNewTask, displayAll } from "../actions/domOperations.js";
 
-const url = "http://127.0.0.1:3000/tasks";
-
+// const url = "http://127.0.0.1:3000/tasks";
+const url = "https://to-do-list-backend-app.herokuapp.com/tasks";
 
 export const taskRequestApi = async (obj={}) =>{
     try{

@@ -51,7 +51,7 @@ export const completeTask = async (Taskid) => {
     let checkBox = completeDiv.getElementsByClassName("completeBtn");
     let updateBtn = completeDiv.getElementsByClassName("editTask");
    
-   if(Tasks[index].isComplete==true && checkBox[0].checked ==true){
+   if(Tasks[index].isComplete==true && checkBox[0].checked ==false){
         alert("Yet to complete?");
         completeDiv.style.backgroundColor="rgba(137, 43, 226, 0.13)";
         let putData = { "content":Tasks[index].content,
@@ -79,7 +79,7 @@ export const completeTask = async (Taskid) => {
 }
 
 
-export const updateTask= async(Taskid,desc,log)=>{
+export const updateTask= async(Taskid,desc)=>{
    
     let Tasks = await taskRequestApi();
     
@@ -110,7 +110,7 @@ export const updateTask= async(Taskid,desc,log)=>{
                     taskUpdate.textContent="Save";
 
                 }
-               
+           
                 let putData = { "content":desc.value,
                                 "createdAt":new Date().toLocaleString(),
                                 "updatedAt":" ",
@@ -119,7 +119,7 @@ export const updateTask= async(Taskid,desc,log)=>{
                 
                 updateRequest(Taskid,putData); 
                                         
- 
+                        
           }
           
     }
