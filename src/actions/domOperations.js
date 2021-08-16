@@ -1,5 +1,5 @@
 
-import { addRequest,createRequest,deleteRequest,updateRequest,taskRequestApi } from "../apiCalls/apiCalls.js";
+import { createRequest,deleteRequest,updateRequest,taskRequestApi } from "../apiCalls/apiCalls.js";
 import { addTaskToDom } from "../components/task.js";
 
 
@@ -12,15 +12,18 @@ export const displayAll = (tasks)=>{
 }
 
 export const createNewTask=async (event)=>{
-   
+   console.log("createTask")
+     
         let taskDesc=document.taskInput.task.value;
         if(taskDesc!=" "){ 
-            let createData={content: taskDesc, 
-                createdAt:new Date().toLocaleString(), 
-                updatedAt: ""
+            let createData={
+                    content: taskDesc, 
+                    createdAt:new Date().toLocaleString(), 
+                    updatedAt: ""
             }
 
-            let resData=await createRequest(createData)       
+            let resData=await createRequest(createData) ;
+            console.log(resData)      
             addTaskToDom(resData);
             document.taskInput.task.value=" ";
 
@@ -32,11 +35,17 @@ export const createNewTask=async (event)=>{
 
 
 export const deleteTask = async (Tasks,Taskid) =>{
-   
-    let removeDiv=document.getElementById(Taskid);
-    alert("This task will be permanently deleted");
-    removeDiv.remove();
-    deleteRequest(Taskid);
+
+    let del=await deleteRequest(Taskid);
+    if(del == "TypeError: Failed to fetch"){
+        window.location.reload();
+    }
+    else{
+        
+        let removeDiv=document.getElementById(Taskid);
+        alert("This task will be permanently deleted");
+        removeDiv.remove();
+    }
   
 }
 
@@ -79,9 +88,10 @@ export const completeTask = async (Taskid) => {
 }
 
 
-export const updateTask= async(Taskid,desc)=>{
-   
+export const updateTask= async(Taskid,desc,log)=>{
+  
     let Tasks = await taskRequestApi();
+
     
     const index = Tasks.findIndex(obj => {
         return obj.taskId === Taskid;
@@ -94,22 +104,17 @@ export const updateTask= async(Taskid,desc)=>{
         desc.disabled="";
         
         let taskUpdate=completeDiv.getElementsByTagName("button")[0]; 
+        console.log(taskUpdate)
         taskUpdate.textContent="Save";
 
-        taskUpdate.onclick= async()=>{
+        taskUpdate.onclick= ()=>{
+            console.log("Ok save");
                
-                if( taskUpdate.textContent="Save"){
-                    completeDiv.lastChild.hidden=false;
-                    desc.disabled="true";
-                    taskUpdate.textContent="Edit Task";
- 
-                }
-                else{
-                    completeDiv.lastChild.hidden=true;
-                    desc.disabled="";
-                    taskUpdate.textContent="Save";
-
-                }
+            completeDiv.lastChild.hidden=false;
+            desc.disabled="true";
+            taskUpdate.textContent="Edit Task";
+    
+          
            
                 let putData = { "content":desc.value,
                                 "createdAt":new Date().toLocaleString(),
@@ -118,11 +123,15 @@ export const updateTask= async(Taskid,desc)=>{
                             }
                 
                 updateRequest(Taskid,putData); 
-                                        
-                        
+                window.location.reload()
+   
           }
+        
+
           
     }
    
           
 }
+
+

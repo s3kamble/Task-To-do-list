@@ -35,7 +35,7 @@ export const addTaskToDom = (task) => {
     }
 
     updateBtn.onclick=(e)=>{ 
-        updateTask(taskDiv.id,taskDesc);
+        updateTask(taskDiv.id,taskDesc,taskLog);
     }
 
     completeBtn.onclick=()=>{

@@ -1,0 +1,49 @@
+export const updateTask= async(Taskid,desc,log)=>{
+   
+    let Tasks = await taskRequestApi();
+    
+    const index = Tasks.findIndex(obj => {
+        return obj.taskId === Taskid;
+    });
+  
+    if(Tasks[index].isComplete===false){
+        let completeDiv=document.getElementById(Taskid); 
+        
+        completeDiv.lastChild.hidden=true;
+        desc.disabled="";
+        
+        let taskUpdate=completeDiv.getElementsByTagName("button")[0]; 
+        taskUpdate.textContent="Save";
+
+        taskUpdate.onclick= ()=>{
+            console.log("Ok save");
+               
+                if( taskUpdate.textContent="Save"){
+                    completeDiv.lastChild.hidden=false;
+                    desc.disabled="true";
+                    taskUpdate.textContent="Edit Task";
+ 
+                }
+                else{
+                    completeDiv.lastChild.hidden=true;
+                    desc.disabled="";
+                    taskUpdate.textContent="Save";
+
+                }
+           
+                let putData = { "content":desc.value,
+                                "createdAt":new Date().toLocaleString(),
+                                "updatedAt":" ",
+                                "isComplete":false
+                            }
+                
+                updateRequest(Taskid,putData); 
+   
+          }
+        
+
+          
+    }
+   
+          
+}
