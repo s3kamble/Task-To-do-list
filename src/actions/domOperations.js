@@ -11,8 +11,7 @@ export const displayAll = (tasks)=>{
         )}
 }
 
-export const createNewTask=async (event)=>{
-   console.log("createTask")
+export const createNewTask=async ()=>{
      
         let taskDesc=document.taskInput.task.value;
         if(taskDesc!=" "){ 
@@ -22,8 +21,7 @@ export const createNewTask=async (event)=>{
                     updatedAt: ""
             }
 
-            let resData=await createRequest(createData) ;
-            console.log(resData)      
+            let resData=await createRequest(createData) ;     
             addTaskToDom(resData);
             document.taskInput.task.value=" ";
 
@@ -58,11 +56,13 @@ export const completeTask = async (Taskid) => {
    
     let completeDiv=document.getElementById(Taskid);
     let checkBox = completeDiv.getElementsByClassName("completeBtn");
-    let updateBtn = completeDiv.getElementsByClassName("editTask");
+    let updateBtn = completeDiv.getElementsByTagName("button")[0];
    
    if(Tasks[index].isComplete==true && checkBox[0].checked ==false){
         alert("Yet to complete?");
         completeDiv.style.backgroundColor="rgba(137, 43, 226, 0.13)";
+        updateBtn.disabled = false ;
+
         let putData = { "content":Tasks[index].content,
                         "createdAt":new Date().toLocaleString(),
                         "updatedAt":" ",
@@ -74,7 +74,7 @@ export const completeTask = async (Taskid) => {
    else if(Tasks[index].isComplete==false && checkBox[0].checked ==true){
         alert("Mark as complete?");
         completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
-        updateBtn.disabled = "true" ;
+        updateBtn.disabled = true ;
         
         let putData = { "content":Tasks[index].content,
                         "createdAt":new Date().toLocaleString(),
@@ -89,44 +89,44 @@ export const completeTask = async (Taskid) => {
 
 
 export const updateTask= async(Taskid,desc,log)=>{
-  
+     
     let Tasks = await taskRequestApi();
 
     
     const index = Tasks.findIndex(obj => {
         return obj.taskId === Taskid;
     });
+
+    alert("Edit task?");
   
     if(Tasks[index].isComplete===false){
-        let completeDiv=document.getElementById(Taskid); 
-        
-        completeDiv.lastChild.hidden=true;
-        desc.disabled="";
-        
+        let completeDiv=document.getElementById(Taskid);       
         let taskUpdate=completeDiv.getElementsByTagName("button")[0]; 
-        console.log(taskUpdate)
-        taskUpdate.textContent="Save";
 
-        taskUpdate.onclick= ()=>{
-            console.log("Ok save");
-               
+        if(taskUpdate.textContent == "Save"){
             completeDiv.lastChild.hidden=false;
             desc.disabled="true";
-            taskUpdate.textContent="Edit Task";
-    
+            taskUpdate.textContent = "Edit task"
+        }
+        else{
+            completeDiv.lastChild.hidden=true;
+            desc.disabled="";
+            taskUpdate.textContent = "Save"
+        }
+
+
+        desc.addEventListener('change',()=>{
+            let putData = { 
+                "content":desc.value,
+                "createdAt":new Date().toLocaleString(),
+                "updatedAt":" ",
+                "isComplete":false
+            }
           
-           
-                let putData = { "content":desc.value,
-                                "createdAt":new Date().toLocaleString(),
-                                "updatedAt":" ",
-                                "isComplete":false
-                            }
-                
-                updateRequest(Taskid,putData); 
-                window.location.reload()
-   
-          }
-        
+            updateRequest(Taskid,putData); 
+        })
+       
+     
 
           
     }

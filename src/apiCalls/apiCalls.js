@@ -19,20 +19,17 @@ window.addEventListener('online', function(e) {
 
 
 export const taskRequestApi = async (obj={}) =>{
-    console.log(obj)
+
     try{
-         console.log("try");
+  
          let response = await fetch(url,obj);
          let data = await response.json();
          let fetchedData = await data.data;
- 
 
-         console.log(fetchedData,obj)
          return fetchedData
 
          }    
     catch(err){
-       console.log(err)
         alert("Failed to fetch data from server",err);
 
     }
@@ -46,7 +43,6 @@ export const getRequest = async (event) =>{
 }
 
 export const createRequest = async (data)=>{
-   console.log("createreq",data)
 
     let obj={
         method:"POST",
@@ -57,15 +53,9 @@ export const createRequest = async (data)=>{
         body:JSON.stringify(data)
     }
    let response= await taskRequestApi(obj);
-   console.log(response)
    return response
 }
 
-// export const addRequest =async (event) =>{
-//    console.log("addRequest")
-
-//     createNewTask();
-// }
 
 export const updateRequest = (Taskid,data) =>{
     try{

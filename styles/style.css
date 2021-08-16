@@ -26,7 +26,8 @@
 }
 
 .taskAdded{
-    font-size: 1.5  rem;
+    font-size: 1.5rem;
+    font-weight: 700;
     margin:1rem;
     width:30vw;
     padding-left:5px;

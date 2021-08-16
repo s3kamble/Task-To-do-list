@@ -11,6 +11,8 @@ window.onload = async function () {
       if (task.isComplete == true){
          let completeDiv=document.getElementById(task.taskId);
          completeDiv.style.backgroundColor="rgba(172, 255, 47, 0.384)";
+         let updateBtn = completeDiv.getElementsByTagName("button")[0];
+         updateBtn.disabled = true ;
       }     
    });
    
@@ -18,9 +20,8 @@ window.onload = async function () {
 };
 
 let taskInput=document.getElementById("addInput");
-taskInput.onclick = ()=>{
-   console.log("app")
-   // addRequest()
+taskInput.onclick = (event)=>{
+   event.preventDefault();
    createNewTask()
 }
  
