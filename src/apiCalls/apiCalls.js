@@ -3,6 +3,17 @@ import { createNewTask, displayAll } from "../actions/domOperations.js";
 // const url = "http://127.0.0.1:3000/tasks";
 const url = "https://to-do-list-backend-app.herokuapp.com/tasks";
 
+window.addEventListener('offline', function(e) { 
+    alert("You are currently offline");
+    location.reload();
+});
+
+
+window.addEventListener('online', function(e) {   
+    location.reload();
+});
+
+
 export const taskRequestApi = async (obj={}) =>{
     try{
 
@@ -12,8 +23,8 @@ export const taskRequestApi = async (obj={}) =>{
  
          return fetchedData
          }    
-    catch{
-        console.log("Error");
+    catch(err){
+        alert("Failed to fetch data from server",err)
     }
  }
 
@@ -50,7 +61,8 @@ export const updateRequest = (Taskid,data) =>{
             body:JSON.stringify(data)
         })
     }catch(err){
-        console.log("Error",err);
+        alert("Failed to fetch data from server",err)
+
     }
 }
 
@@ -60,7 +72,8 @@ export const deleteRequest = (Taskid) =>{
             method:"DELETE",
         })
     }catch(err){
-        console.log("Error",err);
+        alert("Failed to fetch data from server",err)
+
     }
 
 }
