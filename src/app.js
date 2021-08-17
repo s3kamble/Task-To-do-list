@@ -1,7 +1,7 @@
 
 import { createNewTask } from "./actions/domOperations.js";
 import {getRequest} from "./apiCalls/apiCalls.js";
-// import "../styles/style.css";
+import "../styles/style.css";
 
 window.onload = async function () {
 

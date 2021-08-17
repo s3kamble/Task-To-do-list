@@ -1,4 +1,4 @@
-import { alertModal } from "../actions/alert_modal.js";
+
 import { createNewTask, displayAll } from "../actions/domOperations.js";
 
 

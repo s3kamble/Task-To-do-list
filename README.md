@@ -7,7 +7,7 @@
 - Update Existing Task
     <ol>
     <li>Update Content</li>
-    <li>MArk task as Done</li>
+    <li>Mark task as Done</li>
     </ol>
 - Delete Existing Task
 <br>
@@ -30,6 +30,9 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#webpack">Webpack</a></li>
+    <li><a href="#directory-tree">Directory tree</a></li>
+
   </ol>
 </details>
 <br>
@@ -64,4 +67,30 @@
     <li>To use the front-end with local-storage and file system: <a href="https://github.com/s3kamble/To-do-frontend-">Refer this repository </a>
 </ul>
 <br>
+
+<br>
+## <u><b>Webpack</b></u>
+ <p>This repository uses webpack </p>
+ <p>you can visit the "dist" folder to run the application using webpack
+ 
+
+<br>
+<br>
+### <b>Directory-tree</b>
+
+```
+├── dist
+├── images
+│   
+├── src
+│   
+├── styles
+│  
+├──webpack.config    ├
+├── package.json
+├── package-lock.json
+├── README.md
+
+```
+
 
