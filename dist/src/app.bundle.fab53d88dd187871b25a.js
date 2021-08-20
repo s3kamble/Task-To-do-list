@@ -167,6 +167,7 @@ const displayAll = (tasks)=>{
 const createNewTask=async ()=>{
      
         let taskDesc=document.taskInput.task.value;
+        console.log(taskDesc)
         if(taskDesc!=" "){ 
             let createData={
                     content: taskDesc, 
@@ -175,7 +176,7 @@ const createNewTask=async ()=>{
             }
 
             let resData=await createRequest(createData) ;     
-            addTaskToDom(resData);
+            addTaskToDom(createData);
             document.taskInput.task.value=" ";
 
             }
